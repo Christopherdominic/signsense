@@ -1,0 +1,28 @@
+rules_version = '2';
+
+// SignSense community scam reports.
+// Anyone can read report counts; a signed-in (anonymous) user can only write their own report.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /reports/{target}/reporters/{uid} {
+      allow read: if true;
+
+      allow create, update: if request.auth != null
+        && request.auth.uid == uid
+        && target.matches('^(a_[0-9]{1,12}_0x[0-9a-f]{40}|s_[a-z0-9.-]{1,253}(:[0-9]{1,5})?)$')
+        && request.resource.data.keys().hasOnly(['reason', 'kind', 'value', 'chainId', 'createdAt'])
+        && request.resource.data.reason in ['drainer', 'phishing', 'fake_airdrop', 'other']
+        && request.resource.data.kind in ['site', 'address']
+        && request.resource.data.value is string
+        && request.resource.data.value.size() <= 260
+        && request.resource.data.createdAt == request.time;
+
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Everything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
