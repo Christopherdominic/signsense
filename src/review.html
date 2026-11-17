@@ -1,58 +1,66 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="page-review">
 <head>
   <meta charset="utf-8" />
+  <meta name="color-scheme" content="light dark" />
   <title>SignSense: review before you sign</title>
   <link rel="stylesheet" href="review.css" />
 </head>
 <body>
-  <header class="top">
-    <div class="brand"><span class="logo">◈</span> SignSense</div>
-    <div class="site" id="site"></div>
+  <header class="topbar">
+    <div class="brand"><span class="logo"><i class="ico i-shield-check"></i></span>SignSense</div>
+    <div class="site-chip" title="Requesting site"><i class="ico i-globe"></i><span id="site"></span></div>
   </header>
 
-  <section id="banner" class="banner">
-    <div class="banner-kicker" id="kicker">Checking…</div>
-    <h1 id="title">Reading the request</h1>
-  </section>
+  <main>
+    <section id="banner" class="banner" aria-live="polite">
+      <div class="banner-icon"><i class="ico"></i></div>
+      <div>
+        <div class="banner-kicker" id="kicker">Checking…</div>
+        <h1 id="title">Reading the request</h1>
+      </div>
+    </section>
 
-  <section class="card" id="ai-card">
-    <div class="card-head">
-      <h2>What this means</h2>
-      <span class="badge" id="source-badge" hidden></span>
-    </div>
-    <div id="ai-body"><p class="muted shimmer">Thinking privately on your device…</p></div>
-  </section>
+    <section class="card" id="ai-card">
+      <div class="card-head">
+        <h2><i class="ico i-sparkle"></i>What this means</h2>
+        <span class="badge" id="source-badge" hidden></span>
+      </div>
+      <div id="ai-body">
+        <div class="skeleton"><span style="width: 40%"></span><span></span><span style="width: 85%"></span></div>
+      </div>
+    </section>
 
-  <section class="card">
-    <h2>Risk checks</h2>
-    <ul class="flags" id="flags"></ul>
-  </section>
+    <section class="card">
+      <h2><i class="ico i-shield"></i>Risk checks</h2>
+      <ul class="flags" id="flags"></ul>
+    </section>
 
-  <section class="card" id="community-card">
-    <div class="card-head">
-      <h2>Community reports</h2>
-      <span class="badge cloud">Firestore</span>
-    </div>
-    <p class="small" id="community-status"><span class="muted">Checking reports from other SignSense users…</span></p>
-    <div id="community-actions"></div>
-  </section>
+    <section class="card" id="community-card">
+      <div class="card-head">
+        <h2><i class="ico i-users"></i>Community reports</h2>
+        <span class="badge">Firestore</span>
+      </div>
+      <p class="small status-line" id="community-status"><span class="muted shimmer">Checking reports from other SignSense users…</span></p>
+      <div id="community-actions"></div>
+    </section>
 
-  <section class="card">
-    <h2>Decoded request</h2>
-    <dl class="facts" id="facts"></dl>
-  </section>
+    <section class="card">
+      <h2><i class="ico i-code"></i>Decoded request</h2>
+      <dl class="facts" id="facts"></dl>
+    </section>
 
-  <section class="card" id="deep-card">
-    <div class="card-head">
-      <h2>Deep check</h2>
-      <span class="badge cloud">☁ Cloud + web search</span>
-    </div>
-    <p class="muted small">Searches the web for scam reports about this site and contract. Sends the site, contract and spender
-      addresses to Gemini in the cloud. Your own wallet address is never sent.</p>
-    <button class="btn secondary" id="deep-btn">Run deep check</button>
-    <div id="deep-body"></div>
-  </section>
+    <section class="card" id="deep-card">
+      <div class="card-head">
+        <h2><i class="ico i-search"></i>Deep check</h2>
+        <span class="badge cloud">Cloud + web search</span>
+      </div>
+      <p class="card-note">Searches the web for scam reports about this site and contract. Sends the site, contract and spender
+        addresses to Gemini in the cloud. Your own wallet address is never sent.</p>
+      <button class="btn secondary" id="deep-btn">Run deep check</button>
+      <div id="deep-body"></div>
+    </section>
+  </main>
 
   <footer class="actions">
     <label class="ack" id="ack-wrap" hidden><input type="checkbox" id="ack" /> I understand the risk and still want to continue</label>

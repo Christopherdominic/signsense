@@ -10,6 +10,7 @@ const el = (tag, props = {}, ...kids) => {
   kids.flat().forEach((k) => n.append(k));
   return n;
 };
+const icon = (name) => el('i', { className: `ico i-${name}` });
 const RANK = { ok: 0, warn: 1, danger: 2 };
 const VERDICT_LEVEL = { looks_safe: 'ok', be_careful: 'warn', likely_scam: 'danger' };
 const KICKER = { ok: 'Looks normal', warn: 'Be careful', danger: 'High risk: likely a scam' };
@@ -79,34 +80,34 @@ async function runCommunity() {
 
 function renderReportControls(alreadyReported) {
   const box = $('community-actions');
-  if (!reportTargets(decoded.deep).length) { box.replaceChildren(el('p', { className: 'muted small', textContent: 'Nothing here can be reported (only well-known tokens or protocols).' })); return; }
+  if (!reportTargets(decoded.deep).length) { box.replaceChildren(el('p', { className: 'hint', textContent: 'Nothing here can be reported (only well-known tokens or protocols).' })); return; }
   if (alreadyReported) {
     const undo = el('button', { className: 'btn secondary', textContent: 'Undo my report' });
     undo.onclick = async () => { undo.disabled = true; await undoReport(decoded.deep).catch(() => {}); runCommunity(); };
-    box.replaceChildren(el('p', { className: 'small', textContent: '✓ You reported this as a scam. Thank you.' }), undo);
+    box.replaceChildren(el('p', { className: 'small reported' }, icon('check'), 'You reported this as a scam. Thank you.'), undo);
     return;
   }
   const select = el('select', { className: 'select' }, Object.entries(REASONS).map(([value, label]) => el('option', { value, textContent: label })));
-  const btn = el('button', { className: 'btn secondary', textContent: 'Report as scam' });
+  const btn = el('button', { className: 'btn secondary danger-text' }, icon('flag'), 'Report as scam');
   btn.onclick = async () => {
-    btn.disabled = true; btn.textContent = 'Reporting…';
+    btn.disabled = true; btn.replaceChildren('Reporting…');
     try {
       await reportScam(decoded.deep, select.value);
       await runCommunity();
     } catch (e) {
-      btn.disabled = false; btn.textContent = 'Report as scam';
+      btn.disabled = false; btn.replaceChildren(icon('flag'), 'Report as scam');
       $('community-status').textContent = `Could not send the report: ${String(e.message).slice(0, 120)}`;
     }
   };
   box.replaceChildren(el('div', { className: 'row' }, select, btn),
-    el('p', { className: 'muted small', textContent: 'Shares only the site and the counterparty address, never your wallet address.' }));
+    el('p', { className: 'hint', textContent: 'Shares only the site and the counterparty address, never your wallet address.' }));
 }
 
 function sourceBadge(source, extra = '') {
   const b = $('source-badge');
   b.hidden = false;
-  if (source === 'on_device') { b.className = 'badge device'; b.textContent = `⚡ On-device · Gemini Nano${extra}`; }
-  else { b.className = 'badge cloud'; b.textContent = `☁ Cloud · Gemini${extra}`; }
+  if (source === 'on_device') { b.className = 'badge device'; b.textContent = `On-device · Gemini Nano${extra}`; }
+  else { b.className = 'badge cloud'; b.textContent = `Cloud · Gemini${extra}`; }
 }
 
 function renderExplanation(x) {
@@ -119,12 +120,10 @@ function renderExplanation(x) {
     el('div', { className: 'headline', textContent: x.headline }),
     el('p', { textContent: x.explanation, style: 'margin:0' }),
     x.checks?.length ? el('ul', { className: 'checks' }, x.checks.slice(0, 3).map((c) => el('li', { textContent: c }))) : '',
-    el('div', {
-      className: 'meta',
-      textContent: x.source === 'on_device'
+    el('div', { className: 'meta' }, icon(x.source === 'on_device' ? 'bolt' : 'cloud'),
+      x.source === 'on_device'
         ? `Generated on this device in ${x.ms} ms. Nothing left your computer.`
-        : `Generated in the cloud in ${x.ms} ms from a redacted summary (no wallet addresses).`,
-    }),
+        : `Generated in the cloud in ${x.ms} ms from a redacted summary (no wallet addresses).`),
   );
 }
 
@@ -159,7 +158,7 @@ async function renderModelHelp(err) {
     el('p', { className: 'muted', textContent: why }),
     el('div', { className: 'row' }, avail === 'downloadable' || avail === 'downloading' ? dl : '', cloud),
     bar,
-    el('p', { className: 'muted small', textContent: 'The risk checks below were computed locally and are still valid.' }),
+    el('p', { className: 'hint', textContent: 'The risk checks below were computed locally and are still valid.' }),
   );
 }
 
@@ -171,7 +170,7 @@ $('deep-btn').onclick = async () => {
     const widget = el('div');
     if (r.searchWidget) widget.attachShadow({ mode: 'open' }).innerHTML = r.searchWidget; // required Google Search suggestions
     $('deep-body').replaceChildren(
-      el('div', { className: 'meta', textContent: `☁ ${r.model}${r.fellBack ? ' (fallback: main model out of quota)' : ''}` }),
+      el('div', { className: 'meta' }, icon('cloud'), `${r.model}${r.fellBack ? ' (fallback: main model out of quota)' : ''}`),
       el('div', { className: 'deep-text', textContent: r.text }),
       r.sources.length ? el('ol', { className: 'sources' }, r.sources.map((s) => el('li', {}, el('a', { href: s.uri, target: '_blank', rel: 'noopener', textContent: s.title || s.uri })))) : '',
       widget,

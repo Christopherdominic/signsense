@@ -1,39 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="page-popup">
 <head>
   <meta charset="utf-8" />
+  <meta name="color-scheme" content="light dark" />
   <link rel="stylesheet" href="review.css" />
-  <style>
-    body { width: 340px; padding-bottom: 12px; }
-    select { width: 100%; background: #1f2630; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
-    .demo { display: block; width: 100%; text-align: left; margin-top: 6px; }
-    .status { display: flex; justify-content: space-between; align-items: center; }
-  </style>
 </head>
 <body>
-  <header class="top"><div class="brand"><span class="logo">◈</span> SignSense</div><div class="site">Understand it before you sign it</div></header>
+  <header class="topbar">
+    <div class="brand"><span class="logo"><i class="ico i-shield-check"></i></span>SignSense</div>
+    <div class="tagline">Understand it before you sign it</div>
+  </header>
 
-  <section class="card">
-    <h2>AI mode</h2>
-    <select id="mode">
-      <option value="prefer_on_device">Balanced: on-device first, cloud fallback</option>
-      <option value="only_on_device">Strict privacy: on-device only</option>
-      <option value="only_in_cloud">Cloud only</option>
-    </select>
-    <p class="muted small" id="mode-note"></p>
-  </section>
+  <main>
+    <section class="card">
+      <h2><i class="ico i-sparkle"></i>AI mode</h2>
+      <select id="mode" aria-label="AI mode">
+        <option value="prefer_on_device">Balanced: on-device first, cloud fallback</option>
+        <option value="only_on_device">Strict privacy: on-device only</option>
+        <option value="only_in_cloud">Cloud only</option>
+      </select>
+      <p class="mode-note" id="mode-note"></p>
+    </section>
 
-  <section class="card">
-    <div class="status"><h2 style="margin:0">On-device model</h2><span class="badge device" id="avail">…</span></div>
-    <div class="row"><button class="btn secondary" id="download" hidden>Download Gemini Nano</button></div>
-    <div class="progress" id="bar" hidden><div></div></div>
-  </section>
+    <section class="card">
+      <h2><i class="ico i-cpu"></i>On-device model</h2>
+      <div class="model-row">
+        <i class="ico i-bolt"></i>
+        <span class="model-name">Gemini Nano<span class="model-sub">Runs privately in Chrome</span></span>
+        <span class="badge" id="avail">Checking…</span>
+      </div>
+      <div class="row"><button class="btn secondary" id="download" hidden>Download Gemini Nano</button></div>
+      <div class="progress" id="bar" hidden><div></div></div>
+    </section>
 
-  <section class="card">
-    <h2>Try a demo request</h2>
-    <p class="muted small" style="margin-top:0">No wallet needed. Opens the same review window a real request would.</p>
-    <div id="demos"></div>
-  </section>
+    <section class="card">
+      <h2><i class="ico i-play"></i>Demo requests</h2>
+      <p class="card-note">No wallet needed. Each opens the same review window a real request would.</p>
+      <div class="demo-list" id="demos"></div>
+    </section>
+  </main>
+
+  <footer class="popup-foot">Risk checks run locally. Your wallet address is never sent to the cloud.</footer>
 
   <script type="module" src="popup.js"></script>
 </body>
