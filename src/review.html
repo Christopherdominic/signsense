@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SignSense: review before you sign</title>
+  <link rel="stylesheet" href="review.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="logo">◈</span> SignSense</div>
+    <div class="site" id="site"></div>
+  </header>
+
+  <section id="banner" class="banner">
+    <div class="banner-kicker" id="kicker">Checking…</div>
+    <h1 id="title">Reading the request</h1>
+  </section>
+
+  <section class="card" id="ai-card">
+    <div class="card-head">
+      <h2>What this means</h2>
+      <span class="badge" id="source-badge" hidden></span>
+    </div>
+    <div id="ai-body"><p class="muted shimmer">Thinking privately on your device…</p></div>
+  </section>
+
+  <section class="card">
+    <h2>Risk checks</h2>
+    <ul class="flags" id="flags"></ul>
+  </section>
+
+  <section class="card" id="community-card">
+    <div class="card-head">
+      <h2>Community reports</h2>
+      <span class="badge cloud">Firestore</span>
+    </div>
+    <p class="small" id="community-status"><span class="muted">Checking reports from other SignSense users…</span></p>
+    <div id="community-actions"></div>
+  </section>
+
+  <section class="card">
+    <h2>Decoded request</h2>
+    <dl class="facts" id="facts"></dl>
+  </section>
+
+  <section class="card" id="deep-card">
+    <div class="card-head">
+      <h2>Deep check</h2>
+      <span class="badge cloud">☁ Cloud + web search</span>
+    </div>
+    <p class="muted small">Searches the web for scam reports about this site and contract. Sends the site, contract and spender
+      addresses to Gemini in the cloud. Your own wallet address is never sent.</p>
+    <button class="btn secondary" id="deep-btn">Run deep check</button>
+    <div id="deep-body"></div>
+  </section>
+
+  <footer class="actions">
+    <label class="ack" id="ack-wrap" hidden><input type="checkbox" id="ack" /> I understand the risk and still want to continue</label>
+    <div class="buttons">
+      <button class="btn reject" id="reject">Reject</button>
+      <button class="btn approve" id="approve">Continue to wallet</button>
+    </div>
+  </footer>
+
+  <script type="module" src="review.js"></script>
+</body>
+</html>
