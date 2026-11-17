@@ -1,0 +1,23 @@
+{
+  "name": "signsense",
+  "version": "0.1.0",
+  "description": "Chrome extension that explains wallet signing requests with Firebase AI Logic hybrid inference (Gemini Nano on-device + Gemini cloud fallback).",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "test": "node --test test/*.test.js",
+    "zip": "npm run build && cd dist && zip -r ../signsense.zip ."
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "firebase": "^13.4.0"
+  },
+  "devDependencies": {
+    "@noble/hashes": "^2.4.0",
+    "@types/chrome": "^0.3.7",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  },
+  "type": "module",
+  "private": true
+}

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+src/config.js
+*.zip
+.DS_Store
+.env
+docs/AI_CONTEXT.md
