@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "SignSense: understand it before you sign it",
+  "short_name": "SignSense",
+  "version": "0.1.0",
+  "description": "Explains wallet transactions and signatures in plain English, privately on-device with Gemini Nano and a cloud fallback via Firebase AI Logic.",
+  "minimum_chrome_version": "139",
+  "permissions": ["storage"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "SignSense" },
+  "content_scripts": [
+    { "matches": ["<all_urls>"], "js": ["inject.js"], "run_at": "document_start", "world": "MAIN", "all_frames": false },
+    { "matches": ["<all_urls>"], "js": ["content.js"], "run_at": "document_start", "all_frames": false }
+  ],
+  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" }
+}
