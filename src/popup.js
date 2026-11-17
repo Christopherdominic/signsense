@@ -4,8 +4,8 @@ import { deviceAvailability, downloadDeviceModel, getSettings } from './lib/ai.j
 
 const $ = (id) => document.getElementById(id);
 const NOTES = {
-  prefer_on_device: 'Explanations run on Gemini Nano when it is ready, otherwise on Gemini in the cloud (redacted summary only).',
-  only_on_device: 'Nothing is ever sent to the cloud for explanations. Deep checks still need your click.',
+  prefer_on_device: 'Gemini Nano when ready, otherwise the cloud (redacted summary only).',
+  only_on_device: 'Explanations never leave this device. Deep checks still need your click.',
   only_in_cloud: 'Always uses Gemini in the cloud. Useful for comparing quality.',
 };
 

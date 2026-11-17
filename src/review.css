@@ -193,21 +193,27 @@ body.level-ok .btn.approve { background: var(--ok); border-color: transparent; c
 body.level-ok .btn.reject { background: var(--surface); color: var(--text); border-color: var(--border-strong); }
 body.level-ok .btn.reject:hover { background: var(--surface-2); }
 
-/* ---------- Popup ---------- */
-.page-popup body { width: 360px; }
-.page-popup .card { margin: 10px 12px; }
-.page-popup main { padding: 2px 0 4px; }
-.page-popup select { width: 100%; }
-.mode-note { margin-top: 8px; color: var(--muted); font-size: 12px; }
+/* ---------- Popup (compact: Chrome caps popups at 600px tall) ---------- */
+.page-popup body { width: 380px; }
+.page-popup .topbar { padding: 10px 14px; }
+.page-popup main { padding: 0; }
+.page-popup .card { margin: 8px 10px; padding: 10px 12px; }
+.page-popup .card > h2 { margin-bottom: 8px; }
+.page-popup .card-note { margin-bottom: 4px; font-size: 11.5px; }
+.page-popup .row { margin-top: 8px; }
+.page-popup .row:has(> [hidden]:only-child) { display: none; }
+.page-popup .card-head { margin-bottom: 6px; }
+.page-popup select { width: 100%; padding-top: 7px; padding-bottom: 7px; }
+.mode-note { margin-top: 6px; color: var(--muted); font-size: 11.5px; line-height: 1.4; }
 .model-row { display: flex; align-items: center; gap: 10px; }
 .model-row .ico { width: 18px; height: 18px; color: var(--device); }
 .model-name { flex: 1; font-weight: 600; }
 .model-sub { display: block; color: var(--muted); font-size: 11.5px; font-weight: 400; }
 .demo-list { display: grid; margin: 0 -6px; }
-.demo { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 8px; border: 0; border-radius: var(--radius-sm); background: none; color: var(--text); font: inherit; font-size: 12.5px; text-align: left; cursor: pointer; }
+.demo { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 8px; border: 0; border-radius: var(--radius-sm); background: none; color: var(--text); font: inherit; font-size: 12.5px; text-align: left; cursor: pointer; }
 .demo:hover { background: var(--surface-2); }
 .demo .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
 .demo .dot.ok { background: var(--ok); } .demo .dot.warn { background: var(--warn); } .demo .dot.danger { background: var(--danger); }
-.demo .label { flex: 1; }
+.demo .label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .demo .ico { width: 14px; height: 14px; color: var(--muted); }
-.popup-foot { padding: 4px 16px 12px; color: var(--muted); font-size: 11px; text-align: center; }
+.popup-foot { padding: 2px 14px 10px; color: var(--muted); font-size: 11px; text-align: center; }
